@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+const smoothScroll = (elementId) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    const headerHeight = 80; // Account for fixed header
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+};
+
 const DesktopHeader = styled.header`
   position: fixed;
   top: 2rem;
@@ -176,36 +190,22 @@ const Header = () => {
 
           {/* Center Nav */}
           <div className="nav-pill">
-            <a href="#work" onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('work').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }}>Work</a>
             <a href="#why-luminarix" onClick={(e) => {
               e.preventDefault();
-              document.getElementById('why-luminarix').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
+              smoothScroll('why-luminarix');
             }}>Why</a>
             <a href="#services" onClick={(e) => {
               e.preventDefault();
-              document.getElementById('services').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
+              smoothScroll('services');
             }}>Services</a>
-            <a href="#culture">Culture</a>
-            <a href="#blog">Blog</a>
+            <a href="#portfolio" onClick={(e) => {
+              e.preventDefault();
+              smoothScroll('portfolio');
+            }}>Work</a>
             <a href="#contact" onClick={(e) => {
               e.preventDefault();
-              document.getElementById('contact').scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }}>Contact Us</a>
+              smoothScroll('contact');
+            }}>Contact</a>
           </div>
 
         </div>
@@ -232,38 +232,24 @@ const Header = () => {
         {isMenuOpen && (
           <div className="mobile-menu-overlay" onClick={closeMenu}>
             <nav className="mobile-menu" onClick={(e) => e.stopPropagation()}>
-              <a href="#work" onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('work').scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-                closeMenu();
-              }}>Work</a>
               <a href="#why-luminarix" onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('why-luminarix').scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+                smoothScroll('why-luminarix');
                 closeMenu();
               }}>Why</a>
               <a href="#services" onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('services').scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+                smoothScroll('services');
                 closeMenu();
               }}>Services</a>
-              <a href="#culture">Culture</a>
-              <a href="#blog">Blog</a>
+              <a href="#portfolio" onClick={(e) => {
+                e.preventDefault();
+                smoothScroll('portfolio');
+                closeMenu();
+              }}>Work</a>
               <a href="#contact" onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('contact').scrollIntoView({ 
-                  behavior: 'smooth',
-                  block: 'start'
-                });
+                smoothScroll('contact');
                 closeMenu();
               }}>Contact</a>
             </nav>

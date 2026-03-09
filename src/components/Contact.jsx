@@ -102,27 +102,65 @@ const InfoItem = styled.div`
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 0.3px solid rgba(0, 255, 136, 0.3);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
 `;
 
 const InfoIcon = styled.div`
   width: 50px;
   height: 50px;
-  background: rgba(0, 0, 0, 0.8);
-  border: 0.3px solid rgba(0, 255, 136, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
 
   svg {
     width: 24px;
     height: 24px;
-    fill: rgba(0, 255, 136, 0.8);
+    fill: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+
+    &::before {
+      left: 100%;
+    }
+
+    svg {
+      fill: rgba(255, 255, 255, 1);
+    }
   }
 `;
 
@@ -320,7 +358,7 @@ const Contact = () => {
               </InfoIcon>
               <InfoDetails>
                 <InfoLabel>Email</InfoLabel>
-                <InfoValue>hello@luminarix.com</InfoValue>
+                <InfoValue>luminarix.official@gmail.com</InfoValue>
               </InfoDetails>
             </InfoItem>
             

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 
 const WhySection = styled.section`
-  padding: 120px 0;
+  padding: 80px 0;
   background: linear-gradient(180deg, rgba(14, 14, 14, 0.4) 0%, rgba(26, 26, 26, 0.6) 100%),
               url('/assets/images/bgg.jpg');
   background-size: cover;
@@ -15,12 +15,22 @@ const WhySection = styled.section`
   background-attachment: fixed;
   position: relative;
   overflow: hidden;
-  height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
  
   z-index: 10;
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+    min-height: 60vh;
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 0;
+    min-height: 50vh;
+  }
 `;
 
 const WhyContainer = styled.div`
@@ -44,40 +54,52 @@ const WhyContainer = styled.div`
 
 const LeftVisual = styled.div`
   position: relative;
-  height: 600px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (max-width: 968px) {
     position: absolute;
-    top: -100px;
+    top: -50px;
     left: 0;
     right: 0;
-    height: 100%;
+    height: 150px;
     z-index: 1;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 50px;
+  }
+
+  @media (max-width: 480px) {
+    height: 100px;
+    top: -30px;
+    padding-top: 30px;
   }
 `;
 
 const GlowOrb = styled.div`
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   position: relative;
   border-radius: 50%;
   background: radial-gradient(circle at center, 
    rgba(76, 140, 102, 0.83) 30%,  rgba(64, 161, 100, 0.25) 0%, 
     
     transparent 70%);
-  filter: blur(40px);
+  filter: blur(30px);
   animation: float 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
 
   @media (max-width: 968px) {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    height: 100px;
+    filter: blur(20px);
   }
 
   &:before {

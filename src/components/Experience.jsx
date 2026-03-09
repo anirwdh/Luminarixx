@@ -6,7 +6,7 @@ import styled from 'styled-components';
 gsap.registerPlugin(ScrollTrigger);
 
 const ExperienceSection = styled.section`
-  padding: 120px 0;
+  padding: 80px 0;
   background: linear-gradient(180deg, rgba(14, 14, 14, 0.4) 0%, rgba(26, 26, 26, 0.2) 100%),
               url('/assets/images/sss.jpg');
   background-size: cover;
@@ -14,11 +14,21 @@ const ExperienceSection = styled.section`
   background-attachment: fixed;
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+    min-height: 60vh;
+  }
+
+  @media (max-width: 480px) {
+    padding: 40px 0;
+    min-height: 50vh;
+  }
 `;
 
 const ExperienceContainer = styled.div`
@@ -34,7 +44,7 @@ const SectionTitle = styled.h2`
   font-size: clamp(3.1rem, 6vw, 4rem);
   font-weight: 400;
   line-height: 1.05;
-  margin-bottom: 100px;
+  margin-bottom: 60px;
   text-align: right;
   letter-spacing: -1.5px;
 
@@ -51,8 +61,12 @@ const SectionTitle = styled.h2`
 
   @media (max-width: 768px) {
     font-size: clamp(2.5rem, 8vw, 3.5rem);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     text-align: center;
+  }
+
+  @media (max-width: 480px) {
+    margin-bottom: 15px;
   }
 `;
 
@@ -60,7 +74,7 @@ const SectionSubtitle = styled.p`
   font-size: 1.2rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   text-align: center;
   max-width: 600px;
   margin-left: auto;
@@ -69,7 +83,12 @@ const SectionSubtitle = styled.p`
 
   @media (max-width: 768px) {
     font-size: 1.1rem;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
   }
 `;
 
