@@ -17,6 +17,16 @@ const ContactSection = styled.section`
   overflow: hidden;
   min-height: 100vh;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    padding: 80px 0;
+    min-height: auto;
+  }
+
+  @media (max-width: 480px) {
+    padding: 60px 0;
+  }
 `;
 
 const ContactContainer = styled.div`

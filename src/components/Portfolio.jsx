@@ -17,8 +17,14 @@ const PortfolioSection = styled.section`
   overflow: hidden;
 
   @media (max-width: 768px) {
+    background-attachment: scroll;
     height: 100vh;
     min-height: 600px;
+  }
+
+  @media (max-width: 480px) {
+    height: auto;
+    min-height: 500px;
   }
 `;
 

@@ -210,6 +210,11 @@ const VideoBackground = styled.video`
   transform: translateZ(0); /* Hardware acceleration */
   backface-visibility: hidden; /* Prevent flicker */
   will-change: transform; /* Optimize for animations */
+
+  @media (max-width: 768px) {
+    object-position: center;
+    /* Video is now enabled on mobile */
+  }
 `;
 
 const VideoOverlay = styled.div`

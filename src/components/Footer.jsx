@@ -43,7 +43,16 @@ const Logo = styled.div`
   img {
     height: 40px;
     width: auto;
+    max-width: 100%;
     object-fit: contain;
+    
+    @media (max-width: 768px) {
+      height: 35px;
+    }
+    
+    @media (max-width: 480px) {
+      height: 30px;
+    }
   }
 `;
 
