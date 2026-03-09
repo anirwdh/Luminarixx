@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CSSPlugin } from 'gsap/CSSPlugin';
 import styled from 'styled-components';
+import { initEmailJS, sendEmail } from '../services/emailService';
 
 gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 
@@ -269,6 +270,103 @@ const SuccessMessage = styled.div`
   animation: fadeInUp 0.5s ease;
 `;
 
+const ErrorMessage = styled.div`
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(255, 77, 109, 0.2), rgba(255, 0, 0, 0.2));
+  border: 1px solid rgba(255, 77, 109, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.5s ease;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+`;
+
+const ModalContent = styled.div`
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(14, 14, 14, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 60px 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: slideUp 0.4s ease;
+  backdrop-filter: blur(20px);
+
+  @media (max-width: 768px) {
+    padding: 40px 30px;
+    margin: 20px;
+  }
+`;
+
+const SuccessIcon = styled.div`
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00ff7f, #00d4ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  animation: scaleIn 0.5s ease;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    fill: #ffffff;
+  }
+`;
+
+const ModalTitle = styled.h3`
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+`;
+
+const ModalMessage = styled.p`
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 30px;
+`;
+
+const ModalButton = styled.button`
+  background: linear-gradient(135deg, #ff4d6d, #ff6b9d);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
+  }
+`;
+
 const FormSelect = styled.select`
   width: 100%;
   padding: 15px 20px;
@@ -296,11 +394,15 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     service: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -309,29 +411,53 @@ const Contact = () => {
     });
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setShowError(false);
+    setShowSuccess(false);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    setShowSuccess(true);
-    setFormData({
-      name: '',
-      email: '',
-      service: '',
-      message: ''
-    });
+    try {
+      const result = await sendEmail(formData);
+      
+      if (result.success) {
+        setShowModal(true);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        setErrorMessage(result.message);
+        setShowError(true);
+        
+        // Hide error message after 5 seconds
+        setTimeout(() => {
+          setShowError(false);
+        }, 5000);
+      }
+    } catch (error) {
+      setErrorMessage('An unexpected error occurred. Please try again.');
+      setShowError(true);
+      
+      setTimeout(() => {
+        setShowError(false);
+      }, 5000);
+    }
+    
     setIsSubmitting(false);
-
-    // Hide success message after 5 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
   };
 
   useEffect(() => {
+    // Initialize EmailJS
+    initEmailJS();
+    
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -395,6 +521,12 @@ const Contact = () => {
             </SuccessMessage>
           )}
           
+          {showError && (
+            <ErrorMessage>
+              {errorMessage}
+            </ErrorMessage>
+          )}
+          
           <FormGroup>
             <FormLabel htmlFor="name">Your Name</FormLabel>
             <FormInput
@@ -418,6 +550,18 @@ const Contact = () => {
               onChange={handleChange}
               placeholder="john@example.com"
               required
+            />
+          </FormGroup>
+
+          <FormGroup>
+            <FormLabel htmlFor="phone">Phone Number</FormLabel>
+            <FormInput
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="+91 9027224030"
             />
           </FormGroup>
 
@@ -458,6 +602,25 @@ const Contact = () => {
           </SubmitButton>
         </ContactForm>
       </ContactContainer>
+      
+      {showModal && (
+        <ModalOverlay onClick={closeModal}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <SuccessIcon>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </SuccessIcon>
+            <ModalTitle>Thank You!</ModalTitle>
+            <ModalMessage>
+              Your message has been successfully sent. We appreciate your interest in Luminarix and will get back to you soon to discuss how we can help bring your vision to life.
+            </ModalMessage>
+            <ModalButton onClick={closeModal}>
+              Got it
+            </ModalButton>
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </ContactSection>
   );
 };

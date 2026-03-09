@@ -1,6 +1,5 @@
 import React from 'react';
 import { GlobalStyle } from './styles/GlobalStyles';
-import { useScrollSections } from './hooks/useScrollSections';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import WhyLuminarix from './components/WhyLuminarix';
@@ -11,7 +10,6 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
-  useScrollSections();
 
   return (
     <>

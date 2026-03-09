@@ -95,18 +95,38 @@ const SectionSubtitle = styled.p`
 
 const ReviewsGrid = styled.div`
   display: flex;
-  gap: 40px;
+  gap: 30px;
   margin-top: 60px;
   max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  justify-content: center;
-  align-items: center;
+  overflow-x: auto;
+  padding: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
 
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     margin-top: 40px;
+    padding: 10px 0;
   }
 `;
 
@@ -125,29 +145,11 @@ const ReviewCard = styled.div`
   min-height: 380px;
   width: 280px;
   flex-shrink: 0;
-  
-  &:nth-child(1), &:nth-child(2) {
-    transform: translateY(-60px);
-  }
-  
-  &:nth-child(3), &:nth-child(4) {
-    transform: translateY(80px);
-  }
 
   @media (max-width: 768px) {
     padding: 30px;
     min-height: 300px;
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-
-    &:nth-child(1), &:nth-child(2) {
-      transform: translateY(0);
-    }
-    
-    &:nth-child(3), &:nth-child(4) {
-      transform: translateY(0);
-    }
+    width: 260px;
   }
   
   &:before {
@@ -204,27 +206,75 @@ const Experience = () => {
   const reviews = [
     {
       rating: 5,
-      text: "Exceptional work! They transformed our vision into reality with precision and creativity. The attention to detail is unmatched.",
-      author: "Sarah Chen",
+      text: "Blazing fast delivery! Our e-commerce platform was ready in just 2 weeks. The team's understanding of Indian market needs is exceptional.",
+      author: "Ananya Sinha",
       
     },
     {
       rating: 5,
-      text: "Outstanding service from start to finish. The team's dedication and expertise made our project a huge success.",
-      author: "Michael Rodriguez",
+      text: "Great suggestions that transformed our startup! Their innovative ideas helped us secure funding and scale rapidly. Truly game-changing partnership.",
+      author: "Rohit ",
+     
+    },
+    {
+      rating: 5,
+      text: "Beautiful work connecting nature with technology! Our sustainable brand website perfectly reflects our eco-conscious values. Absolutely stunning design.",
+      author: "Priyanka Nair",
+      
+    },
+    {
+      rating: 5,
+      text: "Incredibly helpful team! They guided us through every step of digital transformation. Patient, professional, and always available for support.",
+      author: "Vikram Gangwar",
+     
+    },
+    {
+      rating: 5,
+      text: "Lightning-fast development without compromising quality! Our fintech app launch was smooth and successful. Best investment we've made.",
+      author: "Yashika Singh",
    
     },
     {
       rating: 5,
-      text: "Beyond impressed with the quality and professionalism. They delivered exactly what we needed, on time and beyond expectations.",
-      author: "Emma Thompson",
+      text: "Brilliant suggestions for our restaurant chain! The online ordering system increased our revenue by 40% in just one month.",
+      author: "Aryan agarwal",
+      
+    },
+    {
+      rating: 5,
+      text: "Perfect blend of nature-inspired design and modern functionality! Our wellness center website brings us premium clients daily.",
+      author: "Deepa Iyer",
      
     },
     {
       rating: 5,
-      text: "A truly remarkable experience. Their innovative approach and commitment to excellence set them apart from the rest.",
-      author: "James Park",
+      text: "Outstanding support throughout our journey! They helped us understand digital marketing and stood by our growing business.",
+      author: "Rahul Arora",
+      
+    },
+    {
+      rating: 5,
+      text: "Exceptional ideas that made our edtech platform stand out! Student engagement increased by 60% after their redesign.",
+      author: "Meera Joshi",
+      
+    },
+    {
+      rating: 5,
+      text: "Fast delivery exceeded all expectations! Our real estate portal was completed ahead of schedule with premium features.",
+      author: "Karan ",
+    
+    },
+    {
+      rating: 5,
+      text: "Helpful insights that transformed our traditional business! Their digital strategy brought us into the modern age seamlessly.",
+      author: "Aditi Deshmukh",
      
+    },
+    {
+      rating: 5,
+      text: "Innovative approach to connecting nature with technology! Our organic farm's online presence now reaches customers nationwide.",
+      author: "Suresh Kumar",
+    
     }
   ];
 
