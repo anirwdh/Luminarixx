@@ -71,28 +71,47 @@ const SocialLink = styled.a`
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.8);
-  border: 0.3px solid rgba(0, 255, 136, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
 
   svg {
     width: 20px;
     height: 20px;
-    fill: #00ff88;
-    transition: fill 0.3s ease;
+    fill: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    z-index: 1;
   }
 
   &:hover {
-    border-color: rgba(0, 255, 136, 1);
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
 
+    &::before {
+      left: 100%;
+    }
+
     svg {
-      fill: #00ffaa;
+      fill: rgba(255, 255, 255, 1);
     }
   }
 `;
@@ -219,28 +238,32 @@ const Footer = () => {
               that captivate audiences and drive meaningful results for businesses worldwide.
             </BrandDescription>
             <SocialLinks>
-              <SocialLink href="https://instagram.com/luminarix" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#00ff88">
-                  <rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="#00ff88" strokeWidth="2"/>
-                  <circle cx="7" cy="7" r="1" fill="#00ff88"/>
-                  <circle cx="17" cy="7" r="1" fill="#00ff88"/>
-                  <circle cx="7" cy="17" r="1" fill="#00ff88"/>
-                  <circle cx="17" cy="17" r="1" fill="#00ff88"/>
+              <SocialLink href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="currentColor"/>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
               </SocialLink>
-              <SocialLink href="https://youtube.com/@luminarix" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#00ff88">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.376.505a3.016 3.016 0 0 0-2.122 2.136C.282 8.818 0 11.548 0 14.819c0 2.415.672 4.678 1.825 6.36.2.415 2.415 0 0 0 0 1.825 1.681 3.945 1.825 6.36z"/>
+              <SocialLink href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
                 </svg>
               </SocialLink>
-              <SocialLink href="https://twitter.com/luminarix" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#00ff88">
-                  <path d="M23.953 4.57a10 10 0 0 1-2.825.748 4.937 4.937 0 0 1-1.896.696 4.937 4.937 0 0 1-2.212-1.564 10 10 0 0 1-3.238 1.277 10 10 0 0 1-2.212 1.564 10 10 0 0 1-2.212 1.564 4.937 4.937 0 0 1 1.896.696z"/>
+              <SocialLink href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                  <circle cx="4" cy="4" r="2"/>
                 </svg>
               </SocialLink>
-              <SocialLink href="https://linkedin.com/company/luminarix" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#00ff88">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.562-3.037-1.562 0-1.562 1.709-1.562 3.037v5.569H9.351V9h3.414v1.561h1.562c1.562 0 3.037.234 3.037 1.562v5.569h3.554c.345 0 .625-.28.625-.625V8.062c0-.345-.28-.625-.625-.625H4.125c-.345 0-.625.28-.625.625v11.75c0 .345.28.625.625.625h16.25z"/>
+              <SocialLink href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                </svg>
+              </SocialLink>
+              <SocialLink href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
                 </svg>
               </SocialLink>
             </SocialLinks>

@@ -39,13 +39,14 @@ const HorizontalScrollContainer = styled.div`
   padding-top: 200px;
 
   @media (max-width: 768px) {
-    height: 100vh;
-    min-height: 600px;
-    margin-top: 60px;
+    height: auto;
+    min-height: 60vh;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   @media (max-width: 480px) {
-    margin-top: 50px;
+    min-height: 50vh;
   }
 `;
 
@@ -90,6 +91,9 @@ const WorkItem = styled.div`
     width: 240px;
     height: 320px;
     margin-top: 0;
+    border: 2px solid rgba(255,255,255,0.3);
+    transform: scale(0.9);
+    transition: all 0.3s ease;
   }
 
   @media (max-width: 480px) {
@@ -116,7 +120,13 @@ const WorkItem = styled.div`
 
   @media (max-width: 768px) {
     &:hover {
+      transform: scale(0.9);
+    }
+
+    &.in-focus {
       transform: scale(1);
+      border-color: rgba(0, 255, 136, 0.8);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
     }
   }
 `;
@@ -137,6 +147,10 @@ const WorkImage = styled.div`
   z-index: 0;
   filter: blur(0px);
   opacity: 0;
+
+  @media (max-width: 768px) {
+    opacity: 1;
+  }
 
   &:before {
     content: '';
@@ -175,7 +189,7 @@ const WorkOverlay = styled.div`
 const WorkTitle = styled.h3`
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: 1px;
   color: #ffffff;
 `;
 
@@ -224,21 +238,22 @@ const SectionHeader = styled.div`
     top: auto;
     left: auto;
     text-align: center;
-    margin-bottom: -10px;
+    margin-bottom: 20px;
     padding: 0 20px;
   }
 
   @media (max-width: 480px) {
-    margin-bottom: -10px;
+    margin-bottom: 15px;
     padding: 0 15px;
   }
 `;
 
 const SectionTitle = styled.h2`
+margin-top: 40px;
   font-family: 'Playfair Display', serif;
   font-size: clamp(3.1rem, 6vw, 4rem);
   font-weight: 400;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   line-height: 1.05;
   text-align: left;
   letter-spacing: -1.5px;
@@ -281,6 +296,7 @@ const Portfolio = () => {
   const sectionRef = useRef();
   const scrollContentRef = useRef();
   const itemsRef = useRef();
+  const [focusedIndex, setFocusedIndex] = useState(0);
 
   const projects = [
     { image: '/assets/images/w1.png', url: 'https://takearecess.com/' },
@@ -299,7 +315,7 @@ const Portfolio = () => {
     // Calculate total width needed for horizontal scroll
     const totalWidth = Array.from(items).reduce((acc, item) => acc + item.offsetWidth + 40, 0);
     
-    // Set the width of the scroll content
+    // Set width of scroll content
     scrollContent.style.width = `${totalWidth}px`;
 
     // Check if mobile device
@@ -314,8 +330,37 @@ const Portfolio = () => {
       Array.from(items).forEach(item => {
         item.style.scrollSnapAlign = 'center';
       });
+
+      // Handle scroll to detect focused item
+      const handleScroll = () => {
+        const scrollLeft = scrollContent.scrollLeft;
+        const containerWidth = scrollContent.offsetWidth;
+        const centerX = scrollLeft + containerWidth / 2;
+        
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        
+        Array.from(items).forEach((item, index) => {
+          const itemLeft = item.offsetLeft;
+          const itemCenter = itemLeft + item.offsetWidth / 2;
+          const distance = Math.abs(centerX - itemCenter);
+          
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+        
+        setFocusedIndex(closestIndex);
+      };
+
+      scrollContent.addEventListener('scroll', handleScroll);
+      handleScroll(); // Initial call
       
-      return;
+      return () => {
+        scrollContent.removeEventListener('scroll', handleScroll);
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      };
     }
 
     // Desktop: Simple horizontal scroll animation
@@ -351,7 +396,11 @@ const Portfolio = () => {
       <HorizontalScrollContainer>
         <ScrollContent ref={scrollContentRef}>
           {projects.map((project, index) => (
-            <WorkItem key={index} onClick={() => window.open(project.url, '_blank')}>
+            <WorkItem 
+              key={index} 
+              className={window.innerWidth <= 768 && index === focusedIndex ? 'in-focus' : ''}
+              onClick={() => window.open(project.url, '_blank')}
+            >
               <WorkImage 
                 className="work-image" 
                 style={{ backgroundImage: `url(${project.image})` }}

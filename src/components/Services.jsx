@@ -33,6 +33,7 @@ const ServicesSection = styled.section`
 
 const ServicesContainer = styled.div`
   max-width: 1400px;
+
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
@@ -160,7 +161,7 @@ const Card = styled.div`
 const CardNumber = styled.div`
   position: absolute;
   right: 30px;
-  top: 20px;
+  top: 0px;
   font-size: 80px;
   opacity: 0.15;
   font-family: serif;
@@ -193,26 +194,26 @@ const Services = () => {
   const cardsRef = useRef();
 
   const services = [
-    {
-      title: "Night is ours",
-      description:
-        "Time slows. Conversations soften. Every pour, every plate moves to its own quiet rhythm."
-    },
-    {
-      title: "Heat First",
-      description:
-        "The flame decides everything — sear, scent, smoke."
-    },
-    {
-      title: "Silence Matters",
-      description:
-        "The hush between sounds is part of the ritual."
-    },
-    {
-      title: "Bitter Is Honest",
-      description:
-        "Bitterness is truth, sweetness a memory."
-    }
+   {
+  title: "Software Craft",
+  description:
+    "Custom platforms built to scale. Reliable systems engineered for speed and performance."
+},
+{
+  title: "AI Automation",
+  description:
+    "Chatbots, AI tools and smart workflows that automate tasks and streamline operations."
+},
+{
+  title: "HR Solutions",
+  description:
+    "Hiring, workforce management and HR processes designed for modern organizations."
+},
+{
+  title: "Web & Mobile",
+  description:
+    "High-performance websites and mobile apps crafted for seamless user experiences."
+}
   ];
 
   useEffect(() => {

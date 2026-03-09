@@ -175,7 +175,7 @@ const EditorialContent = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  margin-top: 40px;
+  margin-top: 70px;
 
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
@@ -211,27 +211,28 @@ const WhyLuminarix = () => {
 
         <RightContent ref={rightContentRef}>
           <SectionTitle>
-            <span className="light-text">Where Automation</span><br />
-            <span className="normal-text">Meets Ambition.</span>
+            <span className="light-text">Why Luminarix</span><br />
+            <span className="normal-text">Stands Apart.</span>
           </SectionTitle>
           
-          <SectionSubtitle>
-            We don't just build technology. We design intelligent systems 
-            that quietly power growth, precision, and long-term scalability.
-          </SectionSubtitle>
+          {/* <SectionSubtitle>
+              We design and build intelligent digital systems — from custom software and 
+  AI automation to web and mobile applications — helping businesses scale 
+  faster with technology built for performance, reliability, and growth.
+          </SectionSubtitle> */}
 
           <EditorialContent ref={editorialContentRef}>
             <EditorialParagraph>
-              Luminarix engineers intelligent software, web platforms, and mobile applications 
-              designed to move at the speed of modern business. Every system is built with 
-              automation at its core — reducing friction, eliminating inefficiencies, 
-              and accelerating execution.
+              At Luminarix, we specialize in custom software development, AI automation, 
+    and modern web and mobile application development. Our engineering approach 
+    focuses on building scalable, secure, and high-performance digital solutions 
+    that help businesses operate faster and more efficiently.
             </EditorialParagraph>
 
             <EditorialParagraph>
-              From AI-powered workflows to scalable digital infrastructure, we create 
-              autonomous ecosystems that adapt, optimize, and grow with your ambition — 
-              transforming complexity into clarity and momentum.
+              From AI chatbots and automated workflows to enterprise software platforms 
+    and digital products, we create technology ecosystems that streamline 
+    operations, improve decision-making, and support long-term business growth.
             </EditorialParagraph>
           </EditorialContent>
         </RightContent>
