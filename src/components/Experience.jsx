@@ -21,6 +21,7 @@ const ExperienceSection = styled.section`
   z-index: 10;
 
   @media (max-width: 768px) {
+    background-attachment: scroll;
     padding: 60px 0;
     min-height: 60vh;
   }
@@ -205,25 +206,25 @@ const Experience = () => {
       rating: 5,
       text: "Exceptional work! They transformed our vision into reality with precision and creativity. The attention to detail is unmatched.",
       author: "Sarah Chen",
-      title: "CEO, TechVentures"
+      
     },
     {
       rating: 5,
       text: "Outstanding service from start to finish. The team's dedication and expertise made our project a huge success.",
       author: "Michael Rodriguez",
-      title: "Creative Director"
+   
     },
     {
       rating: 5,
       text: "Beyond impressed with the quality and professionalism. They delivered exactly what we needed, on time and beyond expectations.",
       author: "Emma Thompson",
-      title: "Marketing Head"
+     
     },
     {
       rating: 5,
       text: "A truly remarkable experience. Their innovative approach and commitment to excellence set them apart from the rest.",
       author: "James Park",
-      title: "Product Manager"
+     
     }
   ];
 

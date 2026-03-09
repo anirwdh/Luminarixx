@@ -95,11 +95,12 @@ const HeroButtons = styled.div`
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: -20px;
 `;
 
 const Button = styled.button`
-  padding: 14px 35px;
-  font-size: 14px;
+  padding: 10px 24px;
+  font-size: 12px;
   font-weight: 600;
   border: none;
   border-radius: 50px;
@@ -129,7 +130,7 @@ const Button = styled.button`
 const PrimaryButton = styled(Button)`
   background: transparent;
   color: #bbf7d0;
-  border: 2px solid rgba(187, 247, 208, 0.3);
+  border: 1px solid rgba(187, 247, 208, 0.3);
   position: relative;
   overflow: hidden;
 
@@ -240,6 +241,13 @@ const Hero = () => {
   const subtitleRef = useRef();
   const buttonsRef = useRef();
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     // Only animate if not handled by scroll sections
     const isHandledByScroll = document.querySelector('.scroll-section')?.contains(heroRef.current);
@@ -317,8 +325,7 @@ const Hero = () => {
         </HeroSubtitle>
         
         <HeroButtons ref={buttonsRef}>
-          <PrimaryButton>Get Started</PrimaryButton>
-          <SecondaryButton>View Our Work</SecondaryButton>
+          <PrimaryButton onClick={scrollToContact}>Book Strategy Call</PrimaryButton>
         </HeroButtons>
       </HeroContent>
     </HeroSection>

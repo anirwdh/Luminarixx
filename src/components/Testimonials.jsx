@@ -8,9 +8,22 @@ gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 
 const TestimonialsSection = styled.section`
   padding: 100px 0;
-  background: #0e0e0e;
+  background: linear-gradient(180deg, rgba(14, 14, 14, 0.9) 0%, rgba(26, 26, 26, 0.95) 100%),
+              url('/assets/images/bgg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    padding: 80px 0;
+  }
+
+  @media (max-width: 480px) {
+    padding: 60px 0;
+  }
 `;
 
 const SectionHeader = styled.div`

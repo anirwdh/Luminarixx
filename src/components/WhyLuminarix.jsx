@@ -23,6 +23,7 @@ const WhySection = styled.section`
   z-index: 10;
 
   @media (max-width: 768px) {
+    background-attachment: scroll;
     padding: 60px 0;
     min-height: 60vh;
   }
