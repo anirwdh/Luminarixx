@@ -1,49 +1,36 @@
 import React from 'react';
-import { GlobalStyle } from './styles/GlobalStyles';
-import Header from './components/Header';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
+import { GlobalStyles } from './styles/GlobalStyles';
+
+import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import WhyLuminarix from './components/WhyLuminarix';
+import Features from './components/Features';
 import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import Experience from './components/Experience';
+import Pricing from './components/Pricing';
+import Reviews from './components/Reviews';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
-function App() {
+import '@fontsource/plus-jakarta-sans';
 
+function App() {
   return (
-    <>
-      <GlobalStyle />
-      <Header />
-      
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Navbar />
       <main>
-        <section id="hero">
-          <Hero />
-        </section>
-        
-        <section id="why-luminarix">
-          <WhyLuminarix />
-        </section>
-        
-        <section id="services">
-          <Services />
-        </section>
-        
-        <section id="portfolio">
-          <Portfolio />
-        </section>
-        
-        <section id="experience">
-          <Experience />
-        </section>
-        
-        <section id="contact">
-          <Contact />
-        </section>
+        <Hero />
+        <Features />
+        <Services />
+        <Pricing />
+        <Reviews />
+        <FAQ />
+        <Contact />
       </main>
-      
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }
 

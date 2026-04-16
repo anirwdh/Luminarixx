@@ -49,7 +49,7 @@ const Logo = styled.img`
 const NavPill = styled.nav`
   display: flex;
   gap: 2rem;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(25px);
   padding: 0.75rem 2rem;
   border-radius: 30px;
@@ -137,7 +137,7 @@ const MobileMenuOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0);
   backdrop-filter: blur(20px);
   z-index: 999;
   display: flex;
@@ -182,9 +182,9 @@ const Header = () => {
       {/* ================= DESKTOP HEADER ================= */}
       <header className="desktop-header">
         <div className="desktop-container">
-          {/* Logo positioned absolutely on left */} 
-          <Logo 
-            src="/assets/images/logo.png" 
+          {/* Logo positioned absolutely on left */}
+          <Logo
+            src="/assets/images/logo.png"
             alt="Luminarix"
           />
 
@@ -214,8 +214,8 @@ const Header = () => {
       {/* ================= MOBILE HEADER ================= */}
       <header className="mobile-header">
         <div className="mobile-container">
-          <MobileLogo 
-            src="/assets/images/logo.png" 
+          <MobileLogo
+            src="/assets/images/logo.png"
             alt="Luminarix"
           />
 

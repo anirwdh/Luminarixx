@@ -1,204 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CSSPlugin } from 'gsap/CSSPlugin';
 import styled from 'styled-components';
-
-gsap.registerPlugin(ScrollTrigger, CSSPlugin);
-
-const HeroSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  background: radial-gradient(ellipse at center, rgba(255, 77, 109, 0.1) 0%, transparent 70%);
-  transform: translateZ(0); /* Hardware acceleration */
-  backface-visibility: hidden; /* Prevent flicker */
-  perspective: 1000px; /* Enable 3D acceleration */
-`;
-
-const HeroContent = styled.div`
-  text-align: center;
-  z-index: 3;
-  max-width: 1200px;
-  padding: 0 20px;
-  position: relative;
-  transform: translateZ(0); /* Hardware acceleration */
-  backface-visibility: hidden; /* Prevent flicker */
-`;
-
-const HeroTitle = styled.h1`
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(4rem, 9vw, 7.5rem);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
-  margin-top: 15rem;
-  margin-bottom: 40px;
-  text-transform: none;
-  transform: translateZ(0); /* Hardware acceleration */
-  backface-visibility: hidden; /* Prevent flicker */
-  will-change: transform, opacity; /* Optimize for animations */
-
-  .light-text {
-    background: linear-gradient(135deg, #bbf7d0, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .normal-text {
-    color: #ffffff;
-  }
-
-  span {
-    display: inline-block;
-  }
-
-  @media (max-width: 768px) {
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    margin-bottom: 30px;
-    margin-top: 8rem;
-    letter-spacing: -1px;
-    line-height: 1.1;
-  }
-
-  @media (max-width: 480px) {
-    font-size: clamp(2rem, 10vw, 3.5rem);
-    margin-bottom: 25px;
-    margin-top: 6rem;
-    letter-spacing: -0.5px;
-    line-height: 1.15;
-  }
-`;
-
-const HeroSubtitle = styled.p`
-  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-  margin-bottom: 50px;
-  color: rgba(255, 255, 255, 0.85);
-  font-weight: 400;
-  max-width: 200rem;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.5;
-  letter-spacing: 0.5px;
-  text-align: center;
-  transform: translateZ(0); /* Hardware acceleration */
-  backface-visibility: hidden; /* Prevent flicker */
-  will-change: transform, opacity; /* Optimize for animations */
-`;
-
-const HeroButtons = styled.div`
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: -20px;
-`;
-
-const Button = styled.button`
-  padding: 10px 24px;
-  font-size: 12px;
-  font-weight: 600;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-
-  &:hover:before {
-    left: 100%;
-  }
-`;
-
-const PrimaryButton = styled(Button)`
-  background: transparent;
-  color: #bbf7d0;
-  border: 1px solid rgba(187, 247, 208, 0.3);
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 20, 0.9));
-    border-radius: 50px;
-    z-index: -1;
-    transition: all 0.4s ease;
-  }
-
-  &:hover {
-    color: #ffffff;
-    border-color: rgba(187, 247, 208, 0.6);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(187, 247, 208, 0.2);
-
-    &:before {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(40, 40, 40, 0.95));
-    }
-  }
-`;
-
-const SecondaryButton = styled(Button)`
-  background: transparent;
-  color: #ffffff;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(20, 20, 20, 0.7));
-    border-radius: 50px;
-    z-index: -1;
-    transition: all 0.4s ease;
-  }
-
-  &:hover {
-    color: #bbf7d0;
-    border-color: rgba(187, 247, 208, 0.4);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(187, 247, 208, 0.15);
-
-    &:before {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 30, 0.85));
-    }
-  }
-`;
-
-const BackgroundElements = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-`;
+import gsap from 'gsap';
 
 const VideoBackground = styled.video`
   position: absolute;
@@ -207,15 +9,7 @@ const VideoBackground = styled.video`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1;
-  transform: translateZ(0); /* Hardware acceleration */
-  backface-visibility: hidden; /* Prevent flicker */
-  will-change: transform; /* Optimize for animations */
-
-  @media (max-width: 768px) {
-    object-position: center;
-    /* Video is now enabled on mobile */
-  }
+  z-index: -2;
 `;
 
 const VideoOverlay = styled.div`
@@ -224,110 +18,293 @@ const VideoOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(14, 14, 14, 0.4);
-  z-index: 2;
+  background: rgba(10, 10, 10, 0.7);
+  z-index: -1;
 `;
 
-const FloatingElement = styled.div`
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255, 77, 109, 0.1), rgba(0, 255, 247, 0.1));
-  backdrop-filter: blur(10px);
+const HeroSection = styled.section`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5%;
+  text-align: center;
+  padding-top: 100px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding-top: 90px;
+    min-height: 100svh;
+  }
 `;
+
+const Badge = styled.div`
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: 0.5rem 1rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  font-size: ${({ theme }) => theme.typography.small};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+`;
+
+const Circle = styled.span`
+  width: 8px;
+  height: 8px;
+  background-color: #4ade80; /* Green accent for 'online' or 'available' */
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.4);
+`;
+
+const Title = styled.h1`
+  font-size: ${({ theme }) => theme.typography.hero};
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+  max-width: 900px;
+  line-height: 1.1;
+
+  .line-wrapper {
+    overflow: hidden;
+    display: block;
+    padding-bottom: 0.1em;
+  }
+  
+  .line {
+    display: inline-block;
+    transform: translateY(110%);
+    will-change: transform;
+  }
+  
+  span.highlight {
+    background: linear-gradient(180deg, #111 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+`;
+
+
+const Subtitle = styled.p`
+  font-size: ${({ theme }) => theme.typography.h3};
+  color: ${({ theme }) => theme.colors.text.secondary};
+  max-width: 600px;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+`;
+
+
+const CTAWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;
+
+const PrimaryButton = styled.a`
+  padding: 1rem 2rem;
+  background-color: ${({ theme }) => theme.colors.text.primary};
+  color: ${({ theme }) => theme.colors.background};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
+const SecondaryButton = styled.a`
+  padding: 1rem 2rem;
+  background-color: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.text.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.surfaceHover};
+    border-color: #333;
+  }
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 100%;
+    justify-content: center;
+  }
+`;
+
+const Avatars = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+  padding: 0.75rem 1.25rem;
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.surfaceHover};
+    border-color: #444;
+  }
+
+  .images {
+    display: flex;
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid ${({ theme }) => theme.colors.background};
+      margin-left: -10px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .text {
+    font-size: ${({ theme }) => theme.typography.small};
+    color: ${({ theme }) => theme.colors.text.secondary};
+    text-align: left;
+    span {
+      display: block;
+      color: ${({ theme }) => theme.colors.text.primary};
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    margin-top: 2rem;
+    padding: 0.6rem 1rem;
+    gap: 0.75rem;
+
+    .images img {
+      width: 26px;
+      height: 26px;
+    }
+
+    .text {
+      font-size: 0.75rem;
+    }
+  }
+`;
+
 
 const Hero = () => {
-  const heroRef = useRef();
-  const titleRef = useRef();
-  const subtitleRef = useRef();
-  const buttonsRef = useRef();
-
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    // Only animate if not handled by scroll sections
-    const isHandledByScroll = document.querySelector('.scroll-section')?.contains(heroRef.current);
-    if (isHandledByScroll) return;
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        // Clear timeline after completion to free memory
-        tl.clear();
-      }
-    });
-
-    // Set initial states
-    gsap.set(titleRef.current, { opacity: 0, y: 60 });
-    gsap.set(subtitleRef.current, { opacity: 0, y: 40 });
-    if (buttonsRef.current?.children) {
-      gsap.set(buttonsRef.current.children, { opacity: 0, y: 30 });
-    }
-
-    // Smooth sequential animations with optimized timing
-    tl.to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.0,
-      ease: 'power2.out',
-      force3D: true, // Hardware acceleration
-      willChange: 'transform, opacity' // Optimize for animations
-    })
-    .to(subtitleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power2.out',
-      force3D: true,
-      willChange: 'transform, opacity'
-    }, '-=0.3')
-    .to(buttonsRef.current?.children || [], {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power2.out',
-      force3D: true,
-      willChange: 'transform, opacity'
-    }, '-=0.2');
-
-    return () => {
-      tl.kill();
-      // Clear will-change after animation
-      gsap.set([titleRef.current, subtitleRef.current, buttonsRef.current?.children], { 
-        willChange: 'auto' 
+    const ctx = gsap.context(() => {
+      // Animate lines separately for the exact reveal effect
+      gsap.to('.line', {
+        y: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power4.out',
+        delay: 0.1
       });
-    };
+
+      gsap.to('.hero-anim', {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        delay: 0.5
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <HeroSection ref={heroRef} className="scroll-section">
-      <VideoBackground 
-        autoPlay 
-        muted 
-        loop 
+    <HeroSection ref={containerRef} id="hero">
+      <VideoBackground
+        autoPlay
+        muted
+        loop
         playsInline
-        src="/assets/videos/bg.mp4"
+        src="/assets/videos/bggg.mp4"
       />
       <VideoOverlay />
-      
-      <HeroContent className="section-content">
-        <HeroTitle ref={titleRef}>
-          <span className="light-text">Built At Light</span><br />
-          <span className="normal-text">Speed</span>
-        </HeroTitle>
-        
-        <HeroSubtitle ref={subtitleRef}>
-    We craft premium websites, intelligent software, AI automation, and scalable digital systems for brands that refuse to be ordinary.
-        </HeroSubtitle>
-        
-        <HeroButtons ref={buttonsRef}>
-          <PrimaryButton onClick={scrollToContact}>Book Strategy Call</PrimaryButton>
-        </HeroButtons>
-      </HeroContent>
+      <Badge className="hero-anim">
+        <Circle /> Available for new projects
+      </Badge>
+
+      <Title>
+        <div className="line-wrapper"><span className="line text-reveal">We Build</span></div>
+        <div className="line-wrapper"><span className="line highlight text-reveal">software that Scales</span></div>
+      </Title>
+
+      <Subtitle className="hero-anim">
+        A strategic software that accelerates your SaaS or startup’s success
+      </Subtitle>
+
+      <CTAWrapper className="hero-anim">
+        <PrimaryButton href="#pricing">
+          Secure your March spot
+          <span>🦾</span>
+        </PrimaryButton>
+        <SecondaryButton href="#pricing">
+          Plans and Pricing
+        </SecondaryButton>
+      </CTAWrapper>
+
+      <Avatars className="hero-anim" href="#reviews">
+        <div className="images">
+          {/* using generic placeholders as we don't have the exact user avatars yet */}
+          <img src="https://i.pravatar.cc/100?img=1" alt="user" />
+          <img src="https://i.pravatar.cc/100?img=2" alt="user" />
+          <img src="https://i.pravatar.cc/100?img=3" alt="user" />
+        </div>
+        <div className="text">
+          <span>Our clients trust us</span>
+          Let's see testimonials
+        </div>
+      </Avatars>
     </HeroSection>
   );
 };
