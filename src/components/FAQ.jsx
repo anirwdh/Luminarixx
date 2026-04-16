@@ -262,10 +262,9 @@ const FAQ = () => {
         <ContactCTA className="faq-item">
           <h3>Can't find your answer?</h3>
           <div className="links">
-            <a href="https://t.me/alimdesign" target="_blank" rel="noreferrer">Telegram</a>
-            <a href="https://wa.me/77471036410" target="_blank" rel="noreferrer">WhatsApp</a>
-            <a href="https://x.com/alimdesigner_" target="_blank" rel="noreferrer">X/Twitter</a>
-            <a href="https://discordapp.com/users/489380952838242305" target="_blank" rel="noreferrer">Discord</a>
+            <a href="https://www.linkedin.com/in/the-luminarix-417a703b4/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B9lRJhOfgRPulugA6mfETsA%3D%3D" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/luminarix.official" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://www.threads.com/@luminarix.official" target="_blank" rel="noreferrer">Threads</a>
           </div>
         </ContactCTA>
       </Container>
