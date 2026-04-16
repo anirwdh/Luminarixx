@@ -285,7 +285,7 @@ const Hero = () => {
 
       <CTAWrapper className="hero-anim">
         <PrimaryButton href="#pricing">
-          Secure your March spot
+          Secure your April spot
           <span>🦾</span>
         </PrimaryButton>
         <SecondaryButton href="#pricing">

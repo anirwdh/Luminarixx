@@ -13,7 +13,10 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
+
 
   body {
     background-color: ${({ theme }) => theme.colors.background};

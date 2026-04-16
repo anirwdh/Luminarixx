@@ -8,7 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 const Section = styled.section`
   padding: 8rem 5%;
   background-color: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 4rem 5%;
+  }
 `;
+
 
 const Container = styled.div`
   max-width: 800px;
@@ -81,8 +86,16 @@ const AccordionHeader = styled.button`
     font-weight: 300;
     transition: transform 0.3s ease;
     transform: ${({ $isOpen }) => ($isOpen ? 'rotate(45deg)' : 'rotate(0)')};
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1.25rem 1.25rem;
+    font-size: 1rem;
   }
 `;
+
 
 const AccordionContent = styled.div`
   max-height: ${({ $isOpen }) => ($isOpen ? '500px' : '0')};
@@ -127,7 +140,24 @@ const ContactCTA = styled.div`
       }
     }
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 2rem 1.5rem;
+    margin-top: 2rem;
+
+    h3 { font-size: 1.25rem; }
+
+    .links {
+      gap: 0.75rem;
+
+      a {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
 `;
+
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);

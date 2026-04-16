@@ -8,18 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 const Section = styled.section`
   padding: 8rem 5%;
   background-color: ${({ theme }) => theme.colors.background};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 4rem 5%;
-  }
 `;
-
 
 const Container = styled.div`
   max-width: 1200px;
   margin: 0 auto;
 `;
-
 
 const Header = styled.div`
   text-align: center;
@@ -61,12 +55,7 @@ const ReviewsGrid = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: 1rem;
-  }
 `;
-
 
 const ReviewCard = styled.a`
   background: ${({ theme }) => theme.colors.surface};
@@ -80,55 +69,10 @@ const ReviewCard = styled.a`
   text-decoration: none;
   cursor: pointer;
   color: inherit;
-  position: relative;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: var(--mouse-y, 50%);
-    left: var(--mouse-x, 50%);
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
-    opacity: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
 
   &:hover {
     transform: translateY(-2px);
     border-color: #333;
-  }
-
-  &:hover::before {
-    width: 600px;
-    height: 600px;
-    opacity: 1;
-  }
-
-  &:active::before {
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-    transition: width 0.1s ease, height 0.1s ease, background 0.1s ease;
-  }
-
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 1.75rem;
-
-    p.quote {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
   }
 
   p.quote {
@@ -228,7 +172,7 @@ const Reviews = () => {
     },
     {
       quote: "They perfectly captured the elegance and energy of our wedding choreography business. The new website is not only stunning with its smooth animations, but it has directly translated to more client inquiries. It's truly a beautifully crafted digital experience!",
-      author: "Simaran",
+      author: "Simran",
       company: "Founder, The Wedding Groove",
       initial: "S",
       url: "https://www.theweddinggroove.com/"
@@ -255,20 +199,7 @@ const Reviews = () => {
 
         <ReviewsGrid className="reviews-grid">
           {reviewsData.map((r, i) => (
-            <ReviewCard 
-              key={i} 
-              className="review-card" 
-              href={r.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-              }}
-            >
+            <ReviewCard key={i} className="review-card" href={r.url} target="_blank" rel="noopener noreferrer">
               <p className="quote">{r.quote}</p>
               <div className="author">
                 <div className="avatar">{r.initial}</div>

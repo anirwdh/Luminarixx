@@ -38,14 +38,16 @@ const Links = styled.div`
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(8, 8, 8, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     padding: 2rem 5%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    gap: 1.5rem;
   }
 `;
+
 
 const NavLink = styled.a`
   font-size: ${({ theme }) => theme.typography.small};
@@ -55,17 +57,32 @@ const NavLink = styled.a`
   &:hover {
     color: ${({ theme }) => theme.colors.text.primary};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    padding: 0.25rem 0;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
 `;
+
 
 const MenuToggle = styled.button`
   display: none;
   font-size: 1.5rem;
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: #ffffff;
+  line-height: 1;
   
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
+
 
 const NavActions = styled.div`
   display: flex;

@@ -9,7 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 const Section = styled.section`
   padding: 8rem 5%;
   background-color: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 4rem 5%;
+  }
 `;
+
 
 const Container = styled.div`
   max-width: 1200px;
@@ -21,7 +26,12 @@ const Container = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     grid-template-columns: 1fr;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 2.5rem;
+  }
 `;
+
 
 const ContactInfoWrapper = styled.div`
   .badge {
@@ -48,7 +58,20 @@ const ContactInfoWrapper = styled.div`
     color: ${({ theme }) => theme.colors.text.secondary};
     margin-bottom: 3rem;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    h2 {
+      font-size: clamp(1.8rem, 7vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    p.desc {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+  }
 `;
+
 
 const InfoItemsContainer = styled.div`
   display: flex;
@@ -81,6 +104,7 @@ const InfoItem = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
+    flex-shrink: 0;
   }
   
   .details {
@@ -93,9 +117,26 @@ const InfoItem = styled.div`
       margin: 0;
       color: ${({ theme }) => theme.colors.text.primary};
       font-weight: 500;
+      word-break: break-word;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1.25rem;
+    gap: 1rem;
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+
+    .details p {
+      font-size: 0.875rem;
     }
   }
 `;
+
 
 const FormContainer = styled.form`
   background: rgba(255, 255, 255, 0.02);
@@ -108,6 +149,12 @@ const FormContainer = styled.form`
   flex-direction: column;
   gap: 1.5rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 1.75rem 1.5rem;
+    gap: 1.25rem;
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+  }
 `;
 
 const FormGroup = styled.div`
@@ -121,6 +168,7 @@ const FormGroup = styled.div`
   
   input, textarea, select {
     width: 100%;
+    box-sizing: border-box;
     padding: 1.2rem;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -129,6 +177,7 @@ const FormGroup = styled.div`
     font-family: inherit;
     font-size: ${({ theme }) => theme.typography.body};
     transition: all 0.3s ease;
+    -webkit-appearance: none;
     
     &:focus {
       outline: none;
@@ -142,7 +191,20 @@ const FormGroup = styled.div`
     resize: vertical;
     min-height: 120px;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    label { font-size: 0.8rem; }
+
+    input, textarea, select {
+      padding: 1rem;
+      font-size: 16px; /* Prevents iOS auto-zoom on focus */
+      border-radius: ${({ theme }) => theme.borderRadius.sm};
+    }
+
+    textarea { min-height: 100px; }
+  }
 `;
+
 
 const SubmitBtn = styled.button`
   width: 100%;
